@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "*.conf": "ini",
+    "*.tmpl": "nginx",
+    "entrypoint*": "shellscript"
+  }
+}
