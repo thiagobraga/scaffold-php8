@@ -2,7 +2,6 @@ FROM php:8.0-fpm-alpine
 
 ARG COMPOSER_MEMORY_LIMIT
 ARG PHP_DATE_TIMEZONE
-ARG PHP_FPM_LISTEN
 ARG PHP_FPM_MAX_CHILDREN
 ARG PHP_FPM_REQUEST_TERMINATE_TIMEOUT
 ARG PHP_MAX_EXECUTION_TIME
@@ -17,7 +16,7 @@ ENV ASUSER= \
   COMPOSER_MEMORY_LIMIT=${COMPOSER_MEMORY_LIMIT:--1} \
   ENTRYPOINT=entrypoint.php.sh \
   PHP_DATE_TIMEZONE=${PHP_DATE_TIMEZONE:-UTC} \
-  PHP_FPM_LISTEN=${PHP_FPM_LISTEN:-9000} \
+  PHP_FPM_LISTEN=9000 \
   PHP_FPM_MAX_CHILDREN=${PHP_FPM_MAX_CHILDREN:-10} \
   PHP_FPM_REQUEST_TERMINATE_TIMEOUT=${PHP_FPM_REQUEST_TERMINATE_TIMEOUT:-60} \
   PHP_MAX_EXECUTION_TIME=${PHP_MAX_EXECUTION_TIME:-30} \
@@ -43,9 +42,10 @@ RUN adduser -D -u 1337 scaffold \
   && docker-php-ext-install -j$(nproc) \
     bcmath calendar exif gd intl ldap mbstring mysqli \
     pcntl pdo pdo_mysql soap sockets xml zip \
-  && pecl install imagick pcov redis xdebug \
-  && docker-php-ext-enable pcov \
+  && pecl install imagick mongodb pcov redis xdebug \
   && docker-php-ext-enable imagick \
+  && docker-php-ext-enable mongodb \
+  && docker-php-ext-enable pcov \
   && docker-php-ext-enable redis \
   && cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini \
   && apk del .build-deps \
@@ -53,7 +53,6 @@ RUN adduser -D -u 1337 scaffold \
 
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 COPY --from=jwilder/dockerize:0.6.1 /usr/local/bin/dockerize /usr/local/bin/dockerize
-COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/bin/supervisord
 COPY scaffold.ini /scaffold/scaffold.tmpl
 COPY zz-docker.conf /scaffold/zz-docker.tmpl
 COPY entrypoint /scaffold/entrypoint
