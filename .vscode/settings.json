@@ -3,5 +3,8 @@
     "*.conf": "ini",
     "*.tmpl": "nginx",
     "entrypoint*": "shellscript"
+  },
+  "material-icon-theme.files.associations": {
+    "default.tmpl": "nginx"
   }
 }
