@@ -1,11 +1,8 @@
 #!/bin/bash
 
-# In Gitlab CI build stage, we'll need to pass all variables
-# from Gitlab CI/CD Variables section to `docker build`,
-# using `--build-arg` for each variable.
-
-for TAG in fpm-dev fpm-prod nginx-fpm-dev nginx-fpm-prod; do
-  cat .env | \
-    xargs -d'\n' printf -- '--build-arg %s\n' | \
-    xargs docker build --no-cache -t ${TAG} -f ${TAG}/Dockerfile ${TAG}
-done
+IMAGE='thiagobraga/php8.0-fpm-mongodb-alpine3.13'
+echo 'Start:' $(date +'%Y-%m-%d %H:%M:%S')
+mkdir -p .logs
+for TAG in fpm-dev fpm-prod nginx-fpm-dev nginx-fpm-prod;
+do docker build --no-cache -t ${IMAGE}:${TAG} -f ${TAG}/Dockerfile ${TAG} &> .logs/build-${TAG}.log; done
+echo 'End:  ' $(date +'%Y-%m-%d %H:%M:%S')
