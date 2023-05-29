@@ -10,8 +10,8 @@ ARG PHP_MEMORY_LIMIT
 ARG PHP_POST_MAX_SIZE
 ARG PHP_UPLOAD_MAX_FILESIZE
 
-ENV ASUSER= \
-  UID= \
+ENV ASUSER=${ASUSER:-} \
+  UID=${UID:-} \
   COMPOSER_ALLOW_SUPERUSER=1 \
   COMPOSER_MEMORY_LIMIT=${COMPOSER_MEMORY_LIMIT:--1} \
   ENTRYPOINT=entrypoint.php.sh \
@@ -48,6 +48,8 @@ RUN adduser -D -u 1337 scaffold \
   && docker-php-ext-enable pcov \
   && docker-php-ext-enable redis \
   && cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
+  && curl -sL https://phar.phpunit.de/phpunit-8.phar > /usr/local/bin/phpunit \
+  && chmod +x /usr/local/bin/phpunit \
   && apk del .build-deps \
   && rm -rf /var/cache/apk/* /tmp/*
 
@@ -58,6 +60,6 @@ COPY zz-docker.conf /scaffold/zz-docker.tmpl
 COPY entrypoint /scaffold/entrypoint
 RUN chmod +x /scaffold/entrypoint
 
-EXPOSE 9000
+EXPOSE ${PHP_FPM_LISTEN}
 ENTRYPOINT ["/scaffold/entrypoint"]
 CMD ["php-fpm"]

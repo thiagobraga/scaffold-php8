@@ -11,11 +11,13 @@ ARG PHP_MEMORY_LIMIT
 ARG PHP_POST_MAX_SIZE
 ARG PHP_UPLOAD_MAX_FILESIZE
 
-ENV ASUSER= \
-  UID= \
+ENV ASUSER=${ASUSER:-} \
+  UID=${UID:-} \
   COMPOSER_ALLOW_SUPERUSER=1 \
   COMPOSER_MEMORY_LIMIT=${COMPOSER_MEMORY_LIMIT:--1} \
   ENABLE_XDEBUG=${ENABLE_XDEBUG:-false} \
+  XDEBUG_MODE=${XDEBUG_MODE:-debug} \
+  XDEBUG_CONFIG=${XDEBUG_CONFIG:-client_host=192.168.15.20} \
   ENTRYPOINT=entrypoint.php.sh \
   PHP_DATE_TIMEZONE=${PHP_DATE_TIMEZONE:-UTC} \
   PHP_FPM_LISTEN=9000 \
@@ -50,6 +52,8 @@ RUN adduser -D -u 1337 scaffold \
   && docker-php-ext-enable pcov \
   && docker-php-ext-enable redis \
   && cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini \
+  && curl -sL https://phar.phpunit.de/phpunit-8.phar > /usr/local/bin/phpunit \
+  && chmod +x /usr/local/bin/phpunit \
   && apk del .build-deps \
   && rm -rf /var/cache/apk/* /tmp/*
 
@@ -60,6 +64,6 @@ COPY zz-docker.conf /scaffold/zz-docker.tmpl
 COPY entrypoint /scaffold/entrypoint
 RUN chmod +x /scaffold/entrypoint
 
-EXPOSE 9000
+EXPOSE ${PHP_FPM_LISTEN}
 ENTRYPOINT ["/scaffold/entrypoint"]
 CMD ["php-fpm"]

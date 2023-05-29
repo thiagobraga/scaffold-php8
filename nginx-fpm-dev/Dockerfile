@@ -63,5 +63,5 @@ COPY entrypoint /scaffold/entrypoint
 COPY supervisor.conf /scaffold/supervisor.conf
 RUN chmod +x /scaffold/entrypoint
 
-EXPOSE 80
+EXPOSE ${NGINX_LISTEN} ${NGINX_LISTEN_HTTPS}
 CMD ["supervisord", "-c", "/scaffold/supervisor.conf"]
