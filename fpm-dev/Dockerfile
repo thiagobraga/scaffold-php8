@@ -31,7 +31,7 @@ RUN set -x \
   && addgroup scaffold www-data \
   && apk add --no-cache \
     bash freetype ghostscript gifsicle icu imagemagick jpegoptim less libjpeg-turbo libldap \
-    libpng libpq libzip-dev openssh-client optipng pngquant procps sed shadow su-exec >/dev/null 2>&1 \
+    libpng libpq libzip-dev openssh-client optipng pngquant procps shadow su-exec >/dev/null 2>&1 \
   && apk add --no-cache --virtual .build-deps ${PHPIZE_DEPS} \
     freetype-dev icu-dev imagemagick-dev libedit-dev libjpeg-turbo-dev libpng-dev \
     libxml2-dev linux-headers oniguruma-dev openldap-dev >/dev/null 2>&1 \

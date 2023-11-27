@@ -2,8 +2,7 @@
 
 TAG="${1:-fpm-dev}"
 IMAGE_NAME=scaffold-php8
-DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME:-thiagobraga}
-DOCKER_IMAGE="${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${TAG}"
+DOCKER_IMAGE="thiagobraga/${IMAGE_NAME}:${TAG}"
 PHP_COMMANDS=(
   'whoami'
   'php -v'
@@ -26,8 +25,6 @@ QUALITY_COMMANDS=(
   'phpunit --version'
 )
 
-set -x
-
 for cmd in "${PHP_COMMANDS[@]}"; do docker run ${DOCKER_IMAGE} ${cmd}; done
 for cmd in "${PHP_COMMANDS[@]}"; do docker run -e ASUSER=0 ${DOCKER_IMAGE} ${cmd}; done
 
@@ -39,10 +36,12 @@ if [ ${TAG} == 'fpm-dev' ]; then
 fi
 
 if [[ ${TAG} =~ 'nginx' ]]; then
+  for cmd in "${NGINX_COMMANDS[@]}"; do docker run ${DOCKER_IMAGE} sh -c "whoami && nginx -t && ps -aux | grep nginx"; done
   for cmd in "${NGINX_COMMANDS[@]}"; do docker run ${DOCKER_IMAGE} ${cmd}; done
   for cmd in "${NGINX_COMMANDS[@]}"; do docker run -e ASUSER=0 ${DOCKER_IMAGE} ${cmd}; done
 fi
 
 if [ ${TAG} == 'quality' ]; then
   for cmd in "${QUALITY_COMMANDS[@]}"; do docker run ${DOCKER_IMAGE} ${cmd}; done
+  for cmd in "${QUALITY_COMMANDS[@]}"; do docker run -e ASUSER=0 ${DOCKER_IMAGE} ${cmd}; done
 fi

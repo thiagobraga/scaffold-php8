@@ -1,12 +1,12 @@
 {
   "files.associations": {
-    "default.conf": "nginx",
     "entrypoint*": "shellscript",
     "supervisor.conf": "ini",
+    "www.conf": "nginx",
     "zz-docker.conf": "ini"
   },
   "material-icon-theme.files.associations": {
-    "default.conf": "nginx"
+    "www.conf": "nginx"
   },
   "filewatcher.autoClearConsole": true,
   "filewatcher.shell": "/usr/bin/zsh",

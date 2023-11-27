@@ -3,8 +3,9 @@
 dockerize \
   -template /scaffold/scaffold.ini:/usr/local/etc/php/conf.d/scaffold.ini \
   -template /scaffold/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf \
-  -template /scaffold/default.conf:/etc/nginx/conf.d/default.conf
+  -template /scaffold/www.conf:/etc/nginx/conf.d/www.conf
 
 /scaffold/30-tune-worker-processes.sh
 
-exec su-exec ${ASUSER} "${@}"
+[[ "${@}" == 'php-fpm' || "${@}" == 'nginx' || "${@}" == 'supervisord' ]] \
+  && exec "${@}" || exec su-exec ${ASUSER} "${@}"

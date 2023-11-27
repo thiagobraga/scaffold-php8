@@ -17,8 +17,7 @@ RUN apt-get update \
 # ------------------------------------------------------------------------------
 FROM thiagobraga/scaffold-php8:fpm-prod
 
-ARG ASUSER=0 \
-  NGINX_CLIENT_MAX_BODY_SIZE=25M \
+ARG NGINX_CLIENT_MAX_BODY_SIZE=25M \
   NGINX_FASTCGI_BUFFER_SIZE='16k' \
   NGINX_FASTCGI_BUFFERS='8 8k' \
   NGINX_FASTCGI_READ_TIMEOUT=60s \
@@ -26,8 +25,7 @@ ARG ASUSER=0 \
   NGINX_LISTEN=80 \
   NGINX_LISTEN_HTTPS=443
 
-ENV ASUSER=${ASUSER} \
-  NGINX_CLIENT_MAX_BODY_SIZE=${NGINX_CLIENT_MAX_BODY_SIZE} \
+ENV NGINX_CLIENT_MAX_BODY_SIZE=${NGINX_CLIENT_MAX_BODY_SIZE} \
   NGINX_FASTCGI_BUFFER_SIZE=${NGINX_FASTCGI_BUFFER_SIZE} \
   NGINX_FASTCGI_BUFFERS=${NGINX_FASTCGI_BUFFERS} \
   NGINX_FASTCGI_READ_TIMEOUT=${NGINX_FASTCGI_READ_TIMEOUT} \
@@ -63,4 +61,5 @@ EXPOSE ${NGINX_LISTEN} ${NGINX_LISTEN_HTTPS}
 COPY --chmod=755 . /scaffold/
 COPY --from=cert /scaffold/ssl /scaffold/ssl
 COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/bin/supervisord
+ENTRYPOINT ["/scaffold/entrypoint"]
 CMD ["supervisord", "-c", "/scaffold/supervisor.conf"]

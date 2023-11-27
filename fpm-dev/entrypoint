@@ -9,5 +9,4 @@ dockerize \
   -template /scaffold/scaffold.ini:/usr/local/etc/php/conf.d/scaffold.ini \
   -template /scaffold/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
 
-[[ "${@}" == 'php-fpm' ]] && exec "${@}"
-exec su-exec ${ASUSER} "${@}"
+[[ "${@}" == 'php-fpm' ]] && exec "${@}" || exec su-exec ${ASUSER} "${@}"
