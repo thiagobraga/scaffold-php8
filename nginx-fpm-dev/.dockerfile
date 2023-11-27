@@ -9,13 +9,16 @@ RUN apt-get update \
   && openssl req -new -key _.localhost.key -out server.csr -subj "/C=XX/ST=XX/L=XX/O=Scaffold-Local/OU=Localhost/CN=*.localhost" \
   && openssl x509 -req -days 365 -in server.csr -signkey _.localhost.key -out _.localhost.crt \
   && openssl x509 -in _.localhost.crt -out _.localhost.pem \
-  && rm server.pass.key
+  && rm server.pass.key \
+  && apt-get remove -y openssl \
+  && apt-get clean
 
 # nginx and php-fpm 8.0 for development environment
 # ------------------------------------------------------------------------------
-FROM thiagobraga/php8.0-fpm-mongodb-alpine3.13:fpm-dev
+FROM thiagobraga/scaffold-php8:fpm-dev
 
-ARG NGINX_CLIENT_MAX_BODY_SIZE=25M \
+ARG ASUSER=0 \
+  NGINX_CLIENT_MAX_BODY_SIZE=25M \
   NGINX_FASTCGI_BUFFER_SIZE='16k' \
   NGINX_FASTCGI_BUFFERS='8 8k' \
   NGINX_FASTCGI_READ_TIMEOUT=60s \
@@ -23,7 +26,8 @@ ARG NGINX_CLIENT_MAX_BODY_SIZE=25M \
   NGINX_LISTEN=80 \
   NGINX_LISTEN_HTTPS=443
 
-ENV NGINX_CLIENT_MAX_BODY_SIZE=${NGINX_CLIENT_MAX_BODY_SIZE} \
+ENV ASUSER=${ASUSER} \
+  NGINX_CLIENT_MAX_BODY_SIZE=${NGINX_CLIENT_MAX_BODY_SIZE} \
   NGINX_FASTCGI_BUFFER_SIZE=${NGINX_FASTCGI_BUFFER_SIZE} \
   NGINX_FASTCGI_BUFFERS=${NGINX_FASTCGI_BUFFERS} \
   NGINX_FASTCGI_READ_TIMEOUT=${NGINX_FASTCGI_READ_TIMEOUT} \
@@ -52,14 +56,11 @@ RUN apk add --no-cache nginx \
   && mv server-configs-nginx-*/mime.types /etc/nginx/mime.types \
   && rm -rf server-configs-nginx-* h5bp.tgz \
   && curl -L https://raw.githubusercontent.com/nginxinc/docker-nginx/master/entrypoint/30-tune-worker-processes.sh -o /scaffold/30-tune-worker-processes.sh \
-  && chmod +x /scaffold/30-tune-worker-processes.sh
-
-COPY --from=cert /scaffold/ssl /scaffold/ssl
-COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/bin/supervisord
-COPY default.tmpl /scaffold/default.tmpl
-COPY entrypoint /scaffold/entrypoint
-COPY supervisor.conf /scaffold/supervisor.conf
-RUN chmod +x /scaffold/entrypoint
+  && chmod +x /scaffold/30-tune-worker-processes.sh \
+  && rm -rf /var/cache/apk/* /tmp/*
 
 EXPOSE ${NGINX_LISTEN} ${NGINX_LISTEN_HTTPS}
+COPY --chmod=755 . /scaffold/
+COPY --from=cert /scaffold/ssl /scaffold/ssl
+COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/bin/supervisord
 CMD ["supervisord", "-c", "/scaffold/supervisor.conf"]
