@@ -4,6 +4,10 @@ on:
     branches: [main]
     paths: [README.md, .github/workflows/docker-description.yml]
 
+concurrency:
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
+
 jobs:
   docker-description:
     runs-on: ubuntu-latest

@@ -1,6 +1,10 @@
 name: Deploy images to Docker Hub
 on: [push, workflow_dispatch]
 
+concurrency:
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
