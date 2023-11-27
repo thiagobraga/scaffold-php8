@@ -6,8 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
-      max-parallel: 1
-      parallel: 5
+      max-parallel: 5
       matrix: { type: [quality, nginx-fpm-prod, nginx-fpm-dev, fpm-prod, fpm-dev] }
 
     steps:
