@@ -1,8 +1,9 @@
 {
   "files.associations": {
-    "zz-docker.conf": "ini",
     "default.conf": "nginx",
-    "entrypoint*": "shellscript"
+    "entrypoint*": "shellscript",
+    "supervisor.conf": "ini",
+    "zz-docker.conf": "ini"
   },
   "material-icon-theme.files.associations": {
     "default.conf": "nginx"
