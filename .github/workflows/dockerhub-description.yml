@@ -2,13 +2,13 @@ name: Update Docker Hub image description
 on:
   push:
     branches: [main]
-    paths: [README.md, .github/workflows/docker-description.yml]
+    paths: [README.md, .github/workflows/dockerhub-description.yml]
 
 jobs:
   docker-description:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.1.0
+      - uses: actions/checkout@v4
 
       - name: Sync Docker Hub Description
         uses: peter-evans/dockerhub-description@v3.4.2
