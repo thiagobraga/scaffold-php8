@@ -216,4 +216,4 @@ I'm doing some comparisons between running `pecl install` for each PHP extension
 #7 178.2 + php -- '--install-dir=/usr/local/bin' '--filename=composer'
 ```
 
-[docker-php-logo]: .github/docker-php.png
+[docker-php-logo]: ./.github/docker-php.png
