@@ -1,0 +1,41 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "fpm-dev",
+      "type": "shell",
+      "command": "./test.build.sh fpm-dev && ./test.run.sh fpm-dev",
+      "presentation": { "clear": true }
+    },
+    {
+      "label": "fpm-prod",
+      "type": "shell",
+      "command": "./test.build.sh fpm-prod && ./test.run.sh fpm-prod",
+      "presentation": { "clear": true }
+    },
+    {
+      "label": "nginx-fpm-dev",
+      "type": "shell",
+      "command": "./test.build.sh nginx-fpm-dev && ./test.run.sh nginx-fpm-dev",
+      "presentation": { "clear": true }
+    },
+    {
+      "label": "nginx-fpm-prod",
+      "type": "shell",
+      "command": "./test.build.sh nginx-fpm-prod && ./test.run.sh nginx-fpm-prod",
+      "presentation": { "clear": true }
+    },
+    {
+      "label": "quality",
+      "type": "shell",
+      "command": "./test.build.sh quality && ./test.run.sh quality",
+      "presentation": { "clear": true }
+    },
+    {
+      "label": "act",
+      "type": "shell",
+      "linux": { "command": "act" },
+      "presentation": { "clear": true }
+    }
+  ]
+}

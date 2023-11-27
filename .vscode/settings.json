@@ -1,10 +1,44 @@
 {
   "files.associations": {
-    "*.conf": "ini",
-    "*.tmpl": "nginx",
+    "zz-docker.conf": "ini",
+    "default.conf": "nginx",
     "entrypoint*": "shellscript"
   },
   "material-icon-theme.files.associations": {
-    "default.tmpl": "nginx"
-  }
+    "default.conf": "nginx"
+  },
+  "filewatcher.autoClearConsole": true,
+  "filewatcher.shell": "/usr/bin/zsh",
+  "filewatcher.commands": [
+    {
+      "match": "./fpm-dev/*",
+      "vscodeTask": ["workbench.action.tasks.runTask", "fpm-dev"],
+      "event": "onFileChange"
+    },
+    {
+      "match": "./fpm-prod/*",
+      "vscodeTask": ["workbench.action.tasks.runTask", "fpm-prod"],
+      "event": "onFileChange"
+    },
+    {
+      "match": "./nginx-fpm-dev/*",
+      "vscodeTask": ["workbench.action.tasks.runTask", "nginx-fpm-dev"],
+      "event": "onFileChange"
+    },
+    {
+      "match": "./nginx-fpm-prod/*",
+      "vscodeTask": ["workbench.action.tasks.runTask", "nginx-fpm-prod"],
+      "event": "onFileChange"
+    },
+    {
+      "match": "./quality/*",
+      "vscodeTask": ["workbench.action.tasks.runTask", "quality"],
+      "event": "onFileChange"
+    },
+    {
+      "match": ".github/workflows/*",
+      "vscodeTask": ["workbench.action.tasks.runTask", "act"],
+      "event": "onFileChange"
+    }
+  ]
 }
