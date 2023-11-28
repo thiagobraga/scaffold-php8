@@ -1,4 +1,3 @@
 #!/bin/bash
 
-export PATH="${PATH}:/composer/vendor/bin"
-exec su-exec ${ASUSER} "${@}"
+[[ "${@}" == 'php-fpm' ]] && exec "${@}" || exec su-exec ${ASUSER} "${@}"

@@ -1,6 +1,7 @@
 FROM thiagobraga/scaffold-php8:fpm-dev
 
-ARG PHAN_VERSION=5.4.2 \
+ARG ASUSER=1000 \
+  PHAN_VERSION=5.4.2 \
   PHPCPD_VERSION=6.0.3 \
   PHPCS_VERSION=3.7.2 \
   PHPCSFIXER_VERSION=3.40.0 \
@@ -8,15 +9,17 @@ ARG PHAN_VERSION=5.4.2 \
   PHPSTAN_VERSION=1.10.45 \
   PHPUNIT_VERSION=9.6.13
 
-ENV PHAN_VERSION=${PHAN_VERSION} \
+ENV ASUSER=${ASUSER} \
+  PHAN_VERSION=${PHAN_VERSION} \
   PHPCPD_VERSION=${PHPCPD_VERSION} \
   PHPCS_VERSION=${PHPCS_VERSION} \
   PHPCSFIXER_VERSION=${PHPCSFIXER_VERSION} \
   PHPMD_VERSION=${PHPMD_VERSION} \
   PHPSTAN_VERSION=${PHPSTAN_VERSION} \
-  PHPUNIT_VERSION=${PHPUNIT_VERSION}
+  PHPUNIT_VERSION=${PHPUNIT_VERSION} \
+  PATH="${PATH}:/composer/vendor/bin"
 
-RUN set -x && mkdir -p /composer \
+RUN set -x \
   && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS >/dev/null 2>&1 \
   && pecl install ast >/dev/null 2>&1 \
   && echo 'extension=ast.so' >> /usr/local/etc/php/php.ini >/dev/null 2>&1 \
