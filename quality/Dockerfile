@@ -17,7 +17,6 @@ ENV PHAN_VERSION=${PHAN_VERSION} \
   PHPUNIT_VERSION=${PHPUNIT_VERSION}
 
 RUN set -x && mkdir -p /composer \
-  && echo 'export PATH="${PATH}:/composer/vendor/bin"' | tee -a /etc/profile \
   && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS >/dev/null 2>&1 \
   && pecl install ast >/dev/null 2>&1 \
   && echo 'extension=ast.so' >> /usr/local/etc/php/php.ini >/dev/null 2>&1 \

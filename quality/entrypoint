@@ -1,4 +1,4 @@
 #!/bin/bash
 
-source /etc/profile
+export PATH="${PATH}:/composer/vendor/bin"
 exec su-exec ${ASUSER} "${@}"
