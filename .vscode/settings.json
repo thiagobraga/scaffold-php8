@@ -8,8 +8,18 @@
   "material-icon-theme.files.associations": {
     "www.conf": "nginx"
   },
+  "material-icon-theme.folders.associations": {
+    "fpm-dev": "php",
+    "fpm-prod": "php",
+    "nginx-fpm-dev": "global",
+    "nginx-fpm-prod": "global",
+    "quality": "error"
+  },
   "filewatcher.autoClearConsole": true,
   "filewatcher.shell": "/usr/bin/zsh",
+  "workbench.colorCustomizations": {
+    "sideBar.background": "#35343f"
+  },
   "filewatcher.commands": [
     {
       "match": "./fpm-dev/*",

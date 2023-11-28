@@ -1,8 +1,7 @@
 #!/bin/bash
 
 TAG="${1:-fpm-dev}"
-IMAGE_NAME=scaffold-php8
-DOCKER_IMAGE="thiagobraga/${IMAGE_NAME}:${TAG}"
+DOCKER_IMAGE="thiagobraga/scaffold-php8:${TAG}"
 PHP_COMMANDS=(
   'whoami'
   'php -v'

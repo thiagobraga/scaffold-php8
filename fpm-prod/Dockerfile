@@ -38,7 +38,7 @@ RUN set -x \
     bcmath calendar exif gd intl ldap mbstring mysqli \
     opcache pcntl pdo pdo_mysql soap sockets xml zip >/dev/null 2>&1 \
   && pecl install imagick-3.5.1 >/dev/null 2>&1 \
-  && pecl install mongodb-1.10.0 >/dev/null 2>&1 \
+  && pecl install mongodb-1.15.0 >/dev/null 2>&1 \
   && pecl install pcov-1.0.9 >/dev/null 2>&1 \
   && pecl install redis-5.3.4 >/dev/null 2>&1 \
   && docker-php-ext-enable imagick mongodb pcov redis >/dev/null 2>&1 \
