@@ -2,17 +2,8 @@
 
 TAG="${1:-fpm-dev}"
 DOCKER_IMAGE="thiagobraga/scaffold-php8:${TAG}"
-PHP_COMMANDS=(
-  'whoami'
-  'php -v'
-  'php-fpm -v'
-  'composer -V'
-)
-NGINX_COMMANDS=(
-  'nginx -v'
-  'nginx -t'
-  'supervisord version'
-)
+PHP_COMMANDS=('whoami' 'php -v' 'php-fpm -v' 'composer -V')
+NGINX_COMMANDS=('nginx -v' 'nginx -t' 'supervisord version')
 QUALITY_COMMANDS=(
   'phan -v'
   'phpcpd -v'

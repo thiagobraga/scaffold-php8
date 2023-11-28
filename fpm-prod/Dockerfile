@@ -37,10 +37,10 @@ RUN set -x \
   && docker-php-ext-install -j$(nproc) \
     bcmath calendar exif gd intl ldap mbstring mysqli \
     opcache pcntl pdo pdo_mysql soap sockets xml zip >/dev/null 2>&1 \
-  && pecl install imagick-3.5.1 >/dev/null 2>&1 \
-  && pecl install mongodb-1.15.0 >/dev/null 2>&1 \
-  && pecl install pcov-1.0.9 >/dev/null 2>&1 \
-  && pecl install redis-5.3.4 >/dev/null 2>&1 \
+  && pecl install imagick-3.7.0 >/dev/null 2>&1 \
+  && pecl install mongodb-1.25.1 >/dev/null 2>&1 \
+  && pecl install pcov-1.0.11 >/dev/null 2>&1 \
+  && pecl install redis-6.0.2 >/dev/null 2>&1 \
   && docker-php-ext-enable imagick mongodb pcov redis >/dev/null 2>&1 \
   && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
   && curl -L https://github.com/jwilder/dockerize/releases/download/v0.7.0/dockerize-alpine-linux-amd64-v0.7.0.tar.gz | tar xz \
