@@ -11,10 +11,10 @@ A Docker image created on top of [**php-fpm 8.0** official image](https://hub.do
 The final size of the images is considerably small if you take into account the content of each image:
 
 ```
-thiagobraga/scaffold-php8:fpm-dev          274MB
-thiagobraga/scaffold-php8:fpm-prod         275MB
-thiagobraga/scaffold-php8:nginx-fpm-dev    318MB
-thiagobraga/scaffold-php8:nginx-fpm-prod   319MB
+thiagobraga/scaffold-php8:fpm-dev          277MB
+thiagobraga/scaffold-php8:fpm-prod         277MB
+thiagobraga/scaffold-php8:nginx-fpm-dev    321MB
+thiagobraga/scaffold-php8:nginx-fpm-prod   321MB
 thiagobraga/scaffold-php8:quality          341MB
 ```
 
@@ -39,6 +39,7 @@ thiagobraga/scaffold-php8:quality          341MB
   - [Nginx best practices](#nginx-best-practices)
   - [Quality Tools](#quality-tools)
 - [Check versions](#check-versions)
+- [TODO](#todo)
 
 <!-- /TOC -->
 
@@ -131,3 +132,12 @@ php --ri pcov     # 1.0.11
 php --ri redis    # 6.0.2
 php --ri xdebug   # 3.2.2
 ```
+
+<br>
+
+## TODO
+
+- [ ] Allow customize versions of PECL extensions
+- [ ] Write tests for SSL support in nginx
+
+<br>
