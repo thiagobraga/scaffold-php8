@@ -36,4 +36,4 @@ RUN set -x && mkdir -p /composer \
 
 COPY --chmod=755 . /scaffold/
 ENTRYPOINT ["/scaffold/entrypoint"]
-CMD ["composer", "--version"]
+CMD ["php-fpm"]
