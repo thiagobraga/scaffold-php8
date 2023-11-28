@@ -38,14 +38,13 @@ thiagobraga/scaffold-php8:quality          341MB
   - [PHP Extensions](#php-extensions)
   - [Nginx best practices](#nginx-best-practices)
   - [Quality Tools](#quality-tools)
+- [Check versions](#check-versions)
 
 <!-- /TOC -->
 
 <br>
 
 ## Usage
-
-<br>
 
 ```Dockerfile
 FROM thiagobraga/scaffold-php8:fpm-dev
@@ -61,11 +60,13 @@ FROM thiagobraga/scaffold-php8:quality
 
 <br>
 
-- `fpm-dev`
-- `fpm-prod`
-- `nginx-fpm-dev`
-- `nginx-fpm-prod`
-- `quality`
+| Tag                  | Description                                                                                        |
+|----------------------|----------------------------------------------------------------------------------------------------|
+| **`fpm-dev`**        | it has a lot of extensions installed, but not `opcache`                                            |
+| **`fpm-prod`**       | it has everything from `fpm-dev` except `xdebug` and it includes `opcache`                         |
+| **`nginx-fpm-dev`**  | based on `fpm-dev`, it has nginx installed with SSL support                                        |
+| **`nginx-fpm-prod`** | same above but based on `fpm-prod`                                                                 |
+| **`quality`**        | it descends from `fpm-dev` too but its main purpose is to run [code quality tools](#quality-tools) |
 
 <br>
 
@@ -118,3 +119,15 @@ FROM thiagobraga/scaffold-php8:quality
 - **`phpmd`** `2.14.1`
 - **`phpstan`** `1.10.45`
 - **`phpunit`** `9.6.13`
+
+<br>
+
+## Check versions
+
+```sh
+php --ri imagick  # 3.7.0
+php --ri mongodb  # 1.17.0
+php --ri pcov     # 1.0.11
+php --ri redis    # 6.0.2
+php --ri xdebug   # 3.2.2
+```
