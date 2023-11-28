@@ -41,7 +41,7 @@ RUN set -x \
     bcmath calendar exif gd intl ldap mbstring mysqli \
     pcntl pdo pdo_mysql soap sockets xml zip >/dev/null 2>&1 \
   && pecl install imagick-3.7.0 >/dev/null 2>&1 \
-  && pecl install mongodb-1.25.1 >/dev/null 2>&1 \
+  && pecl install mongodb-1.17.0 >/dev/null 2>&1 \
   && pecl install pcov-1.0.11 >/dev/null 2>&1 \
   && pecl install redis-6.0.2 >/dev/null 2>&1 \
   && pecl install xdebug-3.2.2 >/dev/null 2>&1 \

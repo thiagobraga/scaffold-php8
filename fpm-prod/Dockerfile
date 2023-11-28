@@ -28,7 +28,7 @@ RUN set -x \
   && addgroup scaffold www-data \
   && apk add --no-cache \
     bash freetype ghostscript gifsicle icu imagemagick jpegoptim less libjpeg-turbo libldap \
-    libpng libpq libzip-dev openssh-client optipng pngquant procps sed shadow su-exec >/dev/null 2>&1 \
+    libpng libpq libzip-dev openssh-client optipng pngquant procps shadow su-exec >/dev/null 2>&1 \
   && apk add --no-cache --virtual .build-deps ${PHPIZE_DEPS} \
     freetype-dev icu-dev imagemagick-dev libedit-dev libjpeg-turbo-dev libpng-dev \
     libxml2-dev linux-headers oniguruma-dev openldap-dev >/dev/null 2>&1 \
@@ -38,7 +38,7 @@ RUN set -x \
     bcmath calendar exif gd intl ldap mbstring mysqli \
     opcache pcntl pdo pdo_mysql soap sockets xml zip >/dev/null 2>&1 \
   && pecl install imagick-3.7.0 >/dev/null 2>&1 \
-  && pecl install mongodb-1.25.1 >/dev/null 2>&1 \
+  && pecl install mongodb-1.17.0 >/dev/null 2>&1 \
   && pecl install pcov-1.0.11 >/dev/null 2>&1 \
   && pecl install redis-6.0.2 >/dev/null 2>&1 \
   && docker-php-ext-enable imagick mongodb pcov redis >/dev/null 2>&1 \
