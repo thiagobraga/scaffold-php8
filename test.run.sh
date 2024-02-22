@@ -4,11 +4,13 @@ TAG="${1:-fpm-dev}"
 DOCKER_IMAGE="thiagobraga/scaffold-php8:${TAG}"
 
 docker run ${DOCKER_IMAGE} sh -c "whoami \
+  && id \
   && php -v | head -n1 \
   && php-fpm -v | head -n1 \
   && composer -V"
 
 docker run -e ASUSER=0 ${DOCKER_IMAGE} sh -c "whoami \
+  && id \
   && php -v | head -n1 \
   && php-fpm -v | head -n1 \
   && composer -V"
