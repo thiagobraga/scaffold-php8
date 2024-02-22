@@ -9,7 +9,7 @@ ARG PHP_DATE_TIMEZONE=UTC \
   PHP_POST_MAX_SIZE=25M \
   PHP_UPLOAD_MAX_FILESIZE=25M
 
-ENV ASUSER=${ASUSER:-1000} \
+ENV ASUSER=${ASUSER:-1002} \
   COMPOSER_ALLOW_SUPERUSER=1 \
   COMPOSER_MEMORY_LIMIT=${COMPOSER_MEMORY_LIMIT:--1} \
   PHP_DATE_TIMEZONE=${PHP_DATE_TIMEZONE} \
@@ -24,7 +24,7 @@ ENV ASUSER=${ASUSER:-1000} \
 
 WORKDIR /app
 RUN set -x \
-  && adduser -D -u 1000 scaffold \
+  && adduser -D -u ${ASUSER} scaffold \
   && addgroup scaffold www-data \
   && apk add --no-cache \
     bash freetype ghostscript gifsicle icu imagemagick jpegoptim less libjpeg-turbo libldap \

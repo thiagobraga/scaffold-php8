@@ -7,5 +7,7 @@ dockerize \
 
 /scaffold/30-tune-worker-processes.sh
 
-[[ "${@}" == 'php-fpm' || "${@}" == 'nginx' || "${@}" == 'supervisord' ]] \
-  && exec "${@}" || exec su-exec ${ASUSER} "${@}"
+if [[ "$1" =~ 'php-fpm' ]] || [[ "$1" =~ 'nginx' ]] || [[ "$1" =~ 'supervisord' ]]
+  then exec su-exec root "${@}"
+  else exec su-exec ${ASUSER} "${@}"
+fi

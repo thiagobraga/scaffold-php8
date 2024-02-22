@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ "$ENABLE_XDEBUG" == "true" ]; then
-  docker-php-ext-enable xdebug >> /dev/null 2>&1
+if [ "$ENABLE_XDEBUG" == 'true' ]; then
+  docker-php-ext-enable xdebug >>/dev/null 2>&1
   [ $? != '0' ] && echo '[ERROR] An error happened enabling xdebug' && exit 1
 fi
 
@@ -9,4 +9,7 @@ dockerize \
   -template /scaffold/scaffold.ini:/usr/local/etc/php/conf.d/scaffold.ini \
   -template /scaffold/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
 
-[[ "${@}" == 'php-fpm' ]] && exec "${@}" || exec su-exec ${ASUSER} "${@}"
+if [[ "$1" =~ 'php-fpm' ]]
+  then exec su-exec root "${@}"
+  else exec su-exec ${ASUSER} "${@}"
+fi

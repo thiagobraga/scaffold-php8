@@ -27,7 +27,7 @@ ENV ASUSER=${ASUSER:-1000} \
 
 WORKDIR /app
 RUN set -x \
-  && adduser -D -u 1000 scaffold \
+  && adduser -D -u ${ASUSER} scaffold \
   && addgroup scaffold www-data \
   && apk add --no-cache \
     bash freetype ghostscript gifsicle icu imagemagick jpegoptim less libjpeg-turbo libldap \

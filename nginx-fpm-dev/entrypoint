@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ "$ENABLE_XDEBUG" == "true" ]; then
-  docker-php-ext-enable xdebug >> /dev/null 2>&1
+if [ "$ENABLE_XDEBUG" == 'true' ]; then
+  docker-php-ext-enable xdebug >>/dev/null 2>&1
   [ $? != '0' ] && echo '[ERROR] An error happened enabling xdebug' && exit 1
 fi
 
@@ -12,5 +12,7 @@ dockerize \
 
 /scaffold/30-tune-worker-processes.sh
 
-[[ "${@}" == 'php-fpm' || "${@}" =~ 'nginx' || "${@}" =~ 'supervisord' ]] \
-  && exec "${@}" || exec su-exec ${ASUSER} "${@}"
+if [[ "$1" =~ 'php-fpm' ]] || [[ "$1" =~ 'nginx' ]] || [[ "$1" =~ 'supervisord' ]]
+  then exec su-exec root "${@}"
+  else exec su-exec ${ASUSER} "${@}"
+fi

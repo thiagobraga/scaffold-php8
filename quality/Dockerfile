@@ -38,4 +38,4 @@ RUN set -x \
 
 COPY --chmod=755 . /scaffold/
 ENTRYPOINT ["/scaffold/entrypoint"]
-CMD ["php-fpm"]
+CMD ["composer"]
