@@ -21,8 +21,8 @@ ENV ASUSER=${ASUSER} \
 
 RUN set -x \
   && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS >/dev/null 2>&1 \
-  && pecl install ast >/dev/null 2>&1 \
-  && echo 'extension=ast.so' >> /usr/local/etc/php/php.ini >/dev/null 2>&1 \
+  && pecl install ast \
+  && echo 'extension=ast.so' >> /usr/local/etc/php/php.ini \
   && docker-php-ext-enable xdebug >/dev/null 2>&1 \
   && apk del .build-deps \
   && rm -rf /var/cache/apk/* /tmp/* \
